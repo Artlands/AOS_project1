@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
 				status_pro, status_con);
 			exit(-1);
 		}
-		pthread_join(thread_pro[i], NULL);
-		pthread_join(thread_con[j], NULL);
+		pthread_join(threads_pro[i], NULL);
+		pthread_join(threads_con[j], NULL);
 	}
 
 	pthread_cond_destory(&condc);
