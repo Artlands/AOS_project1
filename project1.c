@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// #define MAX_ITEMS 512
-#define NUM_THREADS	8
 #define BUFFER_SIZE 8
 
 pthread_mutex_t the_mutex;
@@ -28,10 +26,10 @@ void *producer(void *pro_id) {		//produce data
 		pthread_mutex_lock(&the_mutex);		//get exclusive access to buffer
 		while(buffer == BUFFER_SIZE ) {
 			printf("producer %ld found the buffer is full and waiting for a
-				consumer to consume", pro_threadid);
+				consumer to consume\n", pro_threadid);
 			pthread_cond_wait(&condp, &the_mutex);
 		}
-		buffer = buffer + i; // put item in buffer
+		buffer = ++; // put item in buffer
 		printf("producer %ld put %d item(s)to buffer\n", pro_threadid, i );
 		pthread_cond_signal(&condc); // wakeup consumer
 		pthread_mutex_unlock(&the_mutex); // release access to buffer
@@ -52,7 +50,7 @@ void *consumer(void *con_id) {		//consume data
 			pthread_cond_wait(&condc, &the_mutex);		//wakeup Producer
 		}
 		printf("consumer %ld take %d out of buffer, ", con_threadid, i);
-		buffer = buffer - i;
+		buffer --;
 		printf("and set the buffer to %d\n", buffer);
 		pthread_cond_signal(&condp);
 		pthread_mutex_unlock(&the_mutex); // release access to buffer
@@ -62,6 +60,11 @@ void *consumer(void *con_id) {		//consume data
 
 int main(int argc, char *argv[])
 {
+	int NUM_THREADS;
+	print("The buffer size is set to 8 and each producer will produce 64 items\n");
+	print("Please set up numbers of threads for producers and consumers:\n");
+	scanf("%d", &NUM_THREADS)
+
 	pthread_t threads_pro[NUM_THREADS], threads_con[NUM_THREADS];
 	int status_pro, status_con;
 	long i;
