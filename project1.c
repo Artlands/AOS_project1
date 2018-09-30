@@ -13,7 +13,7 @@
 #define NUM_THREADS	8
 #define BUFFER_SIZE 8
 
-pthread_muted_t the_mutex;
+pthread_mutex_t the_mutex;
 pthread_cond_t condc, condp;		//used for signaling
 int buffer = 0;		//shared buffer, used between producer and consumer
 
