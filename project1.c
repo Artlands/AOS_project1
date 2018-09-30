@@ -27,8 +27,8 @@ void *producer(void *pro_id) {		//produce data
 	for(i = 1; i <= MAX_EACH; i++) {
 		pthread_mutex_lock(&the_mutex);		//get exclusive access to buffer
 		while(buffer == BUFFER_SIZE ) {
-			printf("producer %ld found the buffer is full and waiting for a
-				consumer to consume", pro_threadid);
+			printf("producer %ld found the buffer is full and waiting for a"
+						" consumer to consume", pro_threadid);
 			pthread_cond_wait(&condp, &the_mutex);
 		}
 		buffer = buffer + i; // put item in buffer
