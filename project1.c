@@ -79,11 +79,11 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 		pthread_join(threads_pro[i], NULL);
-		pthread_join(threads_con[j], NULL);
+		pthread_join(threads_con[i], NULL);
 	}
 
-	pthread_cond_destory(&condc);
-	pthread_cond_destory(&condp);
-	pthread_mutex_destory(&the_mutex);
+	pthread_cond_destroy(&condc);
+	pthread_cond_destroy(&condp);
+	pthread_mutex_destroy(&the_mutex);
 	pthread_exit(NULL);
 }
