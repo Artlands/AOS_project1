@@ -9,8 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// #define MAX_ITEMS 512
-#define NUM_THREADS	8
 #define BUFFER_SIZE 8
 
 pthread_mutex_t the_mutex;
@@ -27,11 +25,16 @@ void *producer(void *pro_id) {		//produce data
 	for(i = 1; i <= MAX_EACH; i++) {
 		pthread_mutex_lock(&the_mutex);		//get exclusive access to buffer
 		while(buffer == BUFFER_SIZE ) {
+<<<<<<< HEAD
 			printf("producer %ld found the buffer is full and waiting for a"
 						" consumer to consume", pro_threadid);
+=======
+			printf("producer %ld found the buffer is full and waiting for a
+				consumer to consume\n", pro_threadid);
+>>>>>>> temp
 			pthread_cond_wait(&condp, &the_mutex);
 		}
-		buffer = buffer + i; // put item in buffer
+		buffer = ++; // put item in buffer
 		printf("producer %ld put %d item(s)to buffer\n", pro_threadid, i );
 		pthread_cond_signal(&condc); // wakeup consumer
 		pthread_mutex_unlock(&the_mutex); // release access to buffer
@@ -52,7 +55,7 @@ void *consumer(void *con_id) {		//consume data
 			pthread_cond_wait(&condc, &the_mutex);		//wakeup Producer
 		}
 		printf("consumer %ld take %d out of buffer, ", con_threadid, i);
-		buffer = buffer - i;
+		buffer --;
 		printf("and set the buffer to %d\n", buffer);
 		pthread_cond_signal(&condp);
 		pthread_mutex_unlock(&the_mutex); // release access to buffer
@@ -62,6 +65,11 @@ void *consumer(void *con_id) {		//consume data
 
 int main(int argc, char *argv[])
 {
+	int NUM_THREADS;
+	print("The buffer size is set to 8 and each producer will produce 64 items\n");
+	print("Please set up numbers of threads for producers and consumers:\n");
+	scanf("%d", &NUM_THREADS)
+
 	pthread_t threads_pro[NUM_THREADS], threads_con[NUM_THREADS];
 	int status_pro, status_con;
 	long i;
@@ -79,11 +87,15 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 		pthread_join(threads_pro[i], NULL);
+<<<<<<< HEAD
 		pthread_join(threads_con[j], NULL);
+=======
+		pthread_join(threads_con[i], NULL);
+>>>>>>> temp
 	}
 
-	pthread_cond_destory(&condc);
-	pthread_cond_destory(&condp);
-	pthread_mutex_destory(&the_mutex);
+	pthread_cond_destroy(&condc);
+	pthread_cond_destroy(&condp);
+	pthread_mutex_destroy(&the_mutex);
 	pthread_exit(NULL);
 }
