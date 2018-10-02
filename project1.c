@@ -30,6 +30,9 @@ void *producer(void *pro_id) {		//produce data
 			pthread_cond_wait(&condp, &the_mutex);
 		}
 		buffer ++; // put item in buffer
+			pthread_cond_wait(&condp, &the_mutex);
+		}
+		buffer = ++; // put item in buffer
 		printf("producer %ld put %d item(s)to buffer\n", pro_threadid, i );
 		pthread_cond_signal(&condc); // wakeup consumer
 		pthread_mutex_unlock(&the_mutex); // release access to buffer
